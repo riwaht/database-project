@@ -1,0 +1,144 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #2a589c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: white;
+}
+
+.fullPageContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #2a589c;
+  color: white;
+}
+
+.loginHeader {
+  font-size: 24px;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 19px;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.viewButtons {
+  display: flex;
+  margin-bottom: 20px;
+  flex-direction: row;
+  width: 300px;
+  justify-content: center;
+}
+
+.activeButton {
+  background-color: white;
+  color: #2a589c;
+  padding: 8px 16px;
+  font-weight: 600;
+  border-radius: 4px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.inactiveButton {
+  background-color: rgba(255, 255, 255, 0.42); /* White with 42% opacity */
+  color: #2A589C;
+  padding: 8px 16px;
+  font-weight: 600;
+  border-radius: 4px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.loginForm {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+}
+
+.loginOptions {
+  display: flex;
+  flex-direction: column;
+}
+
+.userOption,
+.passwordOption {
+  margin-bottom: 15px;
+}
+
+label {
+  text-align: left;
+  margin-bottom: 5px;
+  display: block;
+  font-family: "Roboto", sans-serif;
+  color: #2a589c;
+  font-weight: 550;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+input[type="text"],
+input[type="password"] {
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  border: 0.5px solid #2a589c;
+  border-radius: 2px;
+  color: rgba(42, 88, 156, 0.6);
+  font-family: 'Roboto', sans-serif;
+  font-style: italic;
+}
+
+.loginButton {
+  padding: 8px;
+  padding-left: 25px;
+  padding-right: 25px;
+  margin-bottom: 4px;
+  background-color: #2a589c;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 450;
+}
+
+.loginButton:hover {
+  background-color: #1d416e;
+}
+
+.forgotPassword {
+  text-align: left;
+  margin-bottom: 15px;
+  color: #2a589c;
+  font-family: "Roboto", sans-serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 13px;
+}
