@@ -1,0 +1,11 @@
+<svg width="13" height="13" viewBox="0 0 13 13" fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <rect width="13" height="13" fill="url(#pattern0)"/>
+    <defs>
+        <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+            <use xlink:href="#image0_10_11" transform="scale(0.01)"/>
+        </pattern>
+        <image id="image0_10_11" width="100" height="100" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAELklEQVR4nO3dy8tVVRzG8Z2ZDryLlyaJKV4GQqCipqCOhCYOrBQdiUiiqIhjKUWNHIR/QwMbJJqXIh04qkFSoQgK4cAbmqKlgzTfEr6xOEsQPWevtc9e56zt+T0feOEdnf1734e9117XUxQJAXOAo8Ad/+N+n53yGhIJWAw85FV/KZQ8YTyis2/6XZNZwAJ/F5S5m7tOEyLDcG7nrnXgRTym9MhqaBiuodebVgMeU/jQFvesGOsURoMojAZRGA2iMBpEYTSIwmgQhdEgCqNBFEaDKIzXd2xqUD0Afga+Bg4CG4G5OcKY02GmT1ruAyeATcDEfgTi5r0lzr/AGeBD4M1eBeIWI0h114DdwCgF0iy3gU+S3TFuAULuv2hAXAIWpQhkthr1ZP4DDgAj6oai1960fgXe6WcoAzM1C4wAJgDvAsuBzcCXwHngWY1Q/gCW1i3OZCidAOOAj3w/ZKiLUJ66V+SiDoXSHjAJ+NT36Ku2K2uLOhRKZ8BoYA/wuGIoHxd1KJRywHTguwqh/AO8X/ei84E/K7QpSwpjaHUKXVsROy42s+4F1dAHAAv9W1XsK3HtforulLhH2O+RoXxe1KU7JQyYClyNCMT1b5aluKDulADfwYwZQb8MDC/q0p0S3abENPRbUl1Q2xECgB0RgdwDxhQpaMNOWGQ/ZXeRSoU2xeQeQ2Aa8Hfgf3Or9mtwF4+vO4VRtMa/Qjakvqi2RXfg2oiIp8jZIjUdHNAZ8FnE4OOUIjU/Hfzi0Rpuvn5WYRww2S8hKrMtd52mAKcCgZzMXaMpwNpAIG5n87DcdZoBjI+Yo38vd52mAL8EAtmcu0ZTgMOBQA7lrtHi7GKZ47lrNAVYURoHXMxdo8W5kjLXc9doCq21XWUe5K7RFGBkIJCh3DWaggJpFj2yXr9G/VruGk0h/Np7IXeNpgBbAoEcy12jKYSHTr7IXaMptNb1ltmUu0Yz0PB7swDrAneHWwihCap+AU4HAtFIb7+4FSURixy29q0g64B9EcuApuau0wRgbMTR7N/nrtMMYC9h63PXaQIw0+++LXMTeCt3rQMPeAP4IeLu2Jm7VhOAXZEbdtIegCavcudmRZ6NonVYvQbMiNyz/pt65j0GvF1hW7S5Uy9yzAbGHhywt7/VGUNrB9ndyDB+SrI/XTq+2u6qcLiZ28Q0rc1HSaJOX0w/4zm3G3dh7QtL27EpNxzypEIYbvBw9UsfJQmG0PdV+A7H59zjbE2ti0uLP610nZ9cCs1ntOPuog/8x0mFY2In+g7dSr+H47Df7VTnmNhbXZ3aWuOC0tmPrpNYOQwFktyQP0qj++H09DWZdR6Y13UQCiSZG6m/rkK64wYRtyc9WkmBdNVGfAus6tnQefWazLkHHPFHY4ztSQgKpK0rwDngK2C/611rIFBERERERESkMO5/1P0mhSO7nj4AAAAASUVORK5CYII="/>
+    </defs>
+</svg>

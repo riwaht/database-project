@@ -1,9 +1,59 @@
-import React from 'react'
+import React from 'react';
+import { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import home from '../assets/home.svg';
+import back from '../assets/back.svg';
 
 const LandingPage = () => {
-  return (
-    <div>LandingPage</div>
-  )
-}
+  const location = useLocation();
+  const view = location.state?.view || 'patient';
+  const navigate = useNavigate();
 
-export default LandingPage
+  useEffect(() => {
+    document.body.classList.add('landingPageBody');
+    return () => {
+      document.body.classList.remove('landingPageBody');
+    };
+  }, []);
+
+  return (
+    <div className="landingPageWrapper">
+      <div className="landingPage">
+        <h1 className="medigraph-title">MediGraph</h1>
+        {view === 'patient' && (
+          <div className='patientDiv'>
+            <div className="welcome">Welcome Charbel.</div>
+            <div className='Notifications'>You have 10 pending notifications.</div>
+          </div>
+        )}
+        {view === 'provider' && (
+          <div>
+            <div className='patientDiv'>
+              <div className="welcome">Welcome Dr. Riwa.</div>
+              <div className='Notifications'>You have 10 pending notifications.</div>
+            </div>
+          </div>
+        )}
+      </div>
+      <footer className="navbar">
+        <div className="navbarContent">
+          <div className="footerTitle">Click anywhere to continue</div>
+          <div className="footerIcons">
+            <button className="footerIcon">
+              <img src={home}></img>
+            </button>
+            <button className="footerIcon"
+              onClick={() => {
+                navigate('/');
+              }}
+            >
+              <img src={back}></img>
+            </button>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default LandingPage;

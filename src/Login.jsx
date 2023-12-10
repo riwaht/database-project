@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [view, setView] = useState('patient'); // 'patient' or 'provider'
+    const navigate = useNavigate();
 
     const handleViewChange = (newView) => {
         setView(newView);
+    };
+
+    const handleLogin = () => {
+        navigate('/landing', { state: { view } });
     };
 
     return (
@@ -39,7 +45,7 @@ const Login = () => {
                                 <input type="password" id="patientPassword" placeholder="Insert Password..." />
                                 <button className='forgotPassword'>Forgot your password?</button>
                             </div>
-                            <button className="loginButton">Login</button>
+                            <button className="loginButton"onClick={handleLogin}>Login</button>
                         </div>
                     )}
                     {view === 'provider' && (
@@ -53,9 +59,9 @@ const Login = () => {
                                 <input type="password" id="providerPassword" placeholder="Insert Password..." />
                                 <button className='forgotPassword'>Forgot your password?</button>
                             </div>
-                            <button className="loginButton">Login</button>
+                            <button className="loginButton"onClick={handleLogin}>Login</button>
                         </div>
-                    )}
+                      )}
                 </div>
             </div>
         </div>
