@@ -45,7 +45,7 @@ const Login = () => {
                                 <input type="password" id="patientPassword" placeholder="Insert Password..." />
                                 <button className='forgotPassword'>Forgot your password?</button>
                             </div>
-                            <button className="loginButton"onClick={handleLogin}>Login</button>
+                            <button className="loginButton" onClick={handleLogin}>Login</button>
                         </div>
                     )}
                     {view === 'provider' && (
@@ -59,9 +59,9 @@ const Login = () => {
                                 <input type="password" id="providerPassword" placeholder="Insert Password..." />
                                 <button className='forgotPassword'>Forgot your password?</button>
                             </div>
-                            <button className="loginButton"onClick={handleLogin}>Login</button>
+                            <button className="loginButton" onClick={handleLogin}>Login</button>
                         </div>
-                      )}
+                    )}
                 </div>
             </div>
         </div>

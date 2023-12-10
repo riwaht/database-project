@@ -16,6 +16,21 @@ const LandingPage = () => {
     };
   }, []);
 
+  // get click event on the page
+  useEffect(() => {
+    const handleClick = () => {
+      if (view === 'patient') {
+        navigate('/patient', { state: { view } });
+      } else {
+        navigate('/provider', { state: { view } });
+      }
+    };
+    document.addEventListener('click', handleClick);
+    return () => {
+      document.removeEventListener('click', handleClick);
+    };
+  }, [navigate, view]);
+
   return (
     <div className="landingPageWrapper">
       <div className="landingPage">
