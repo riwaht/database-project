@@ -13,6 +13,7 @@ const PORT = process.env["PORT"];
 
 // Express Routes Import
 // const AuthorizationRoutes = require("");
+const GeneralRoutes = require("./routes");
 const UserRoutes = require("./users/routes");
 
 
@@ -67,25 +68,11 @@ PrescriptionsModel.initialize(sequelize);
 sequelize
   .sync()
   .then(() => {
-    console.log("Sequelize Initialized");
+    app.listen(PORT, () => { console.log("Server listening on port:", PORT); });
 
-    app.listen(PORT, () => {
-      console.log("Server listening on port:", PORT);
-    });
-
-    // Status Route
-    app.get("/status", (req, res) => {
-      const status = {
-        Status: "Running",
-        Check: "CHECK 2",
-        Request: req.method,
-      };
-
-      res.send(status);
-    });
-
-    // Attaching the Authentication and User Routes to the app.
+    app.use("/", GeneralRoutes);
     app.use("/user", UserRoutes);
+
   })
   .catch((err) => {
     "Sequelize Error: " + err.message;

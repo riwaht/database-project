@@ -9,7 +9,9 @@ const UserController = require("./controllers/UserController");
 
 router.get("/", UserController.getUser);
 
-router.get("/all", isAuthenticatedMiddleware.check ,UserController.getAllUsers);
+router.get("/all",
+    [isAuthenticatedMiddleware.check, CheckPermissionMiddleware.has("admin")],
+    UserController.getAllUsers);
 
 router.patch(
   "/update/:userId",
