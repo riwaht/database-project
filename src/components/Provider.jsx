@@ -22,7 +22,7 @@ const Provider = () => {
                 </div>
                 {/* Add data rows here */}
                 <div className="tableRow">
-                    <button className="tableRowFilled">
+                    <button className="tableRowFilled" onClick={() => navigate('/records')}>
                         <div className="tableCell">211603</div>
                         <div className="tableCell">John</div>
                         <div className="tableCell">Doe</div>
@@ -30,7 +30,7 @@ const Provider = () => {
                     </button>
                 </div>
                 <div className="tableRow">
-                    <button className="tableRowFilled">
+                    <button className="tableRowFilled" onClick={() => navigate('/records')}>
                         <div className="tableCell">211603</div>
                         <div className="tableCell">John</div>
                         <div className="tableCell">Doe</div>
@@ -38,7 +38,7 @@ const Provider = () => {
                     </button>
                 </div>
                 <div className="tableRow">
-                    <button className="tableRowFilled">
+                    <button className="tableRowFilled" onClick={() => navigate('/records')}>
                         <div className="tableCell">211603</div>
                         <div className="tableCell">John</div>
                         <div className="tableCell">Doe</div>
