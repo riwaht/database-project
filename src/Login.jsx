@@ -10,6 +10,7 @@ const Login = () => {
     };
 
     const handleLogin = () => {
+        console.log('navigated to landing')
         navigate('/landing', { state: { view } });
     };
 
