@@ -18,16 +18,25 @@ const LandingPage = () => {
 
   // get click event on the page
   useEffect(() => {
-    const handleClick = () => {
-      if (view === 'patient') {
-        navigate('/patient', { state: { view } });
-      } else {
-        navigate('/provider', { state: { view } });
+    const landingPageWrapper = document.querySelector('.landingPageBody');
+    console.log('landingPageWrapper', landingPageWrapper);
+
+    const handleClick = (event) => {
+      if (event.target === landingPageWrapper) {
+        console.log('clicked on landing page');
+        if (view === 'patient') {
+          navigate('/patient', { state: { view } });
+          console.log('navigated to patient');
+        } else {
+          navigate('/provider', { state: { view } });
+        }
       }
     };
-    document.addEventListener('click', handleClick);
+
+    landingPageWrapper.addEventListener('click', handleClick);
+
     return () => {
-      document.removeEventListener('click', handleClick);
+      landingPageWrapper.removeEventListener('click', handleClick);
     };
   }, [navigate, view]);
 
@@ -37,14 +46,14 @@ const LandingPage = () => {
         <h1 className="medigraph-title">MediGraph</h1>
         {view === 'patient' && (
           <div className='patientDiv'>
-            <div className="welcome">Welcome Charbel.</div>
+            <div className="welcome">Welcome, Charbel.</div>
             <div className='Notifications'>You have 10 pending notifications.</div>
           </div>
         )}
         {view === 'provider' && (
           <div>
             <div className='patientDiv'>
-              <div className="welcome">Welcome Dr. Riwa.</div>
+              <div className="welcome">Welcome, Dr. Riwa.</div>
               <div className='Notifications'>You have 10 pending notifications.</div>
             </div>
           </div>

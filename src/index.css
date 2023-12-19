@@ -158,6 +158,11 @@ body.landingPageBody {
   color: #2a589c;
 }
 
+.landingPageWrapper {
+  height: 100vh;
+  width: 100%;
+}
+
 .medigraph-title {
   position: fixed;
   top: 20px;
@@ -233,16 +238,45 @@ body.landingPageBody {
   height: 24px;
 }
 
-.mainPage{
+.mainPage {
   display: flex;
   height: 100vh;
   width: 100%;
 }
 
-.viewButtonsMain{
+.viewButtonsMain {
   position: fixed;
   top: 100px;
   left: 40px;
+}
+
+.title {
+  font-family: "Roboto", sans-serif;
+  color: #2a589c;
+  font-weight: 700;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 18px;
+  color: #152c4e;
+  position: fixed;
+  top: 100px;
+  left: 45px;
+}
+
+.viewButtonsTable {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.patientInfo {
+  padding: 12px;
+}
+
+.imageSurgery {
+  padding: 30px;
 }
 
 .activeButtonMain {
@@ -263,4 +297,47 @@ body.landingPageBody {
   border-radius: 4px;
   margin-right: 10px;
   cursor: pointer;
+}
+
+.mainTableDiv {
+  height: 60vh;
+  width: 90%;
+  position: fixed;
+  left: 40px;
+  top: 160px;
+}
+
+.tableRow {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 15px 20px;
+  border-bottom: 1px solid #ffffff;
+}
+
+.tableCell {
+  flex: 0.2;
+  text-align: center;
+  padding: 5px;
+}
+
+.tableRowFilled {
+  display: flex;
+  background-color: white;
+  border-radius: 5px;
+  color: black;
+  width: 100%;
+  justify-content: space-between;
+  padding: 1px 0;
+}
+
+.mainText {
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  padding-left: 10px;
+  padding-top: 10px;
+  font-size: 16px;
+  line-height: 16px;
+  color: #ffffff;
 }
