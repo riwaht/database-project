@@ -7,7 +7,7 @@ const UserModel = {
     autoIncrement: true,
     primaryKey: true,
   },
-  password:{
+  password: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -52,7 +52,7 @@ module.exports = {
     });
   },
 
-  updateUser: (query, updatedValue) => {
+  updateUser: (updatedValue, query) => {
     return this.model.update(updatedValue, {
       where: query,
     });
