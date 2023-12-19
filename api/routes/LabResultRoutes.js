@@ -9,19 +9,11 @@ const LabResultController = require("../controllers/LabResultController");
 
 const GetRole = require("../helpers/GetRole");
 
-router.get("/", isAuthenticatedMiddleware.check, (req, res) => {
-  const userRole = GetRole(req.user).role;
-
-  if (userRole === "patient") {
-    return LabResultController.getLabResultById;
-  } else if (userRole === "admin") {
-    return LabResultController.getAllLabResults;
-  } else {
-    return res
-      .status(403)
-      .json({ success: false, message: "Unauthorized access" });
-  }
-});
+router.get(
+  "/",
+  [isAuthenticatedMiddleware.check, CheckPermissionMiddleware.has("admin")],
+  LabResultController.getAllLabResults
+);
 
 router.get("/:id", isAuthenticatedMiddleware.check, (req, res) => {
   const userRole = GetRole(req.user).role;
