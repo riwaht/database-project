@@ -1,21 +1,23 @@
-const UserModel = require("./../../common/models/User");
+const UserModel = require("../models/User");
 
 module.exports = {
   getUser: (req, res) => {
-    if(!Object.keys(req.body).length){
+    if (!Object.keys(req.body).length) {
       return res.status(412).json({
         status: false,
-        message: "Request Body is missing parameters"
-      })
+        message: "Request Body is missing parameters",
+      });
     }
 
-    const { userID: { userID } } = req;
+    const {
+      userID: { userID },
+    } = req;
 
-    if(req.get(userID) === null){
+    if (req.get(userID) === null) {
       return res.status(412).json({
         status: false,
-        message: "Request Body has empty parameters"
-      })
+        message: "Request Body has empty parameters",
+      });
     }
 
     UserModel.findUser({ id: userID })
@@ -105,5 +107,4 @@ module.exports = {
         });
       });
   },
-
 };
