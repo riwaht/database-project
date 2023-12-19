@@ -1,4 +1,6 @@
 const UserModel = require("../models/User");
+const ProfessionalModel = require("../models/HealthcareProvider");
+const PatientModel = require("../models/Patient");
 
 module.exports = {
   getUser: (req, res) => {
@@ -22,10 +24,27 @@ module.exports = {
 
     UserModel.findUser({ id: userID })
       .then((user) => {
-        return res.status(200).json({
-          status: true,
-          data: user.toJSON(),
-        });
+        if (user.role === "patient") {
+          PatientModel.findUser({ id: userID }).then((patient) => {
+            return res.status(200).json({
+              status: true,
+              userData: user.toJSON(),
+              patientData: patient.toJSON(),
+            });
+          });
+        } else if (user.role === "provider") {
+          ProfessionalModel.findProvider({ id: userID }).then(
+            (professional) => {
+              return res.status(200).json({
+                status: true,
+                userData: user.toJSON(),
+                professionalData: professional.toJSON(),
+              });
+            }
+          );
+        } else {
+          return res.status(200).json({ status: true, userData: user.toJSON });
+        }
       })
       .catch((err) => {
         return res.status(500).json({
