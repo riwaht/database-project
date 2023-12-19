@@ -62,7 +62,7 @@ module.exports = {
     });
   },
 
-  updateUser: (query, updatedValue) => {
+  updateUser: (updatedValue, query) => {
     return this.model.update(updatedValue, {
       where: query,
     });
