@@ -48,7 +48,7 @@ module.exports = {
       where: query,
     });
   },
-  updateMedicalImaging: (query, updatedValue) => {
+  updateMedicalImaging: (updatedValue, query) => {
     return MedicalImaging.update(updatedValue, {
       where: query,
     });

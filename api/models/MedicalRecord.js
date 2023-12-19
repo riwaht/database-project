@@ -50,7 +50,7 @@ module.exports = {
     });
   },
 
-  updateMedicalRecord: (query, updatedValue) => {
+  updateMedicalRecord: (updatedValue, query) => {
     return MedicalRecord.update(updatedValue, {
       where: query,
     });
