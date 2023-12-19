@@ -11,24 +11,17 @@ dotenv.config();
 // Environment Variables assignment
 const PORT = process.env["PORT"];
 
-// Express Routes Import
-// const AuthorizationRoutes = require("");
-const GeneralRoutes = require("./routes");
-const UserRoutes = require("./users/routes");
-
-
 // Sequelize Model Imports
-const AppointmentModel = require("./common/models/Appointment");
-const DrugModel = require("./common/models/Drug");
-const HealthcareProviderModel = require("./common/models/HealthcareProvider");
-const LabResultModel = require("./common/models/LabResult");
-const MedicalImagingModel = require("./common/models/MedicalImaging");
-const MedicalRecordModel = require("./common/models/MedicalRecord");
-const MedicalTestModel = require("./common/models/MedicalTest");
-const PatientModel = require("./common/models/Patient");
-const PrescriptionsModel = require("./common/models/Prescriptions");
-const UserModel = require("./common/models/User");
-
+const AppointmentModel = require("./models/Appointment");
+const DrugModel = require("./models/Drug");
+const HealthcareProviderModel = require("./models/HealthcareProvider");
+const LabResultModel = require("./models/LabResult");
+const MedicalImagingModel = require("./models/MedicalImaging");
+const MedicalRecordModel = require("./models/MedicalRecord");
+const MedicalTestModel = require("./models/MedicalTest");
+const PatientModel = require("./models/Patient");
+const PrescriptionsModel = require("./models/Prescription");
+const UserModel = require("./models/User");
 
 // App start
 const app = express();
@@ -47,12 +40,14 @@ const sequelize = new Sequelize(
   }
 );
 
-
-sequelize.authenticate().then(() => {
+sequelize
+  .authenticate()
+  .then(() => {
     console.log("Connection has been established successfully");
-}).catch(error => {
+  })
+  .catch((error) => {
     console.error("Unable to connect to the database:", error);
-})
+  });
 
 PatientModel.initialize(sequelize);
 HealthcareProviderModel.initialize(sequelize);
@@ -65,14 +60,33 @@ MedicalTestModel.initialize(sequelize);
 MedicalImagingModel.initialize(sequelize);
 PrescriptionsModel.initialize(sequelize);
 
+// Express Routes Import
+const GeneralRoutes = require("./Routes");
+const UserRoutes = require("./routes/UserRoutes");
+const AppointmentRoutes = require("./routes/AppointmentRoutes");
+const DrugRoutes = require("./routes/DrugRoutes");
+const LabResultRoutes = require("./routes/LabResultRoutes");
+const MedicalImagingRoutes = require("./routes/MedicalImagingRoutes");
+const MedicalTestRoutes = require("./routes/MedicalTestRoutes");
+const MedicalRecordRoutes = require("./routes/MedicalRecordRoutes");
+const PrescriptionRoutes = require("./routes/PrescriptionRoutes");
+
 sequelize
   .sync()
   .then(() => {
-    app.listen(PORT, () => { console.log("Server listening on port:", PORT); });
+    app.listen(PORT, () => {
+      console.log("Server listening on port:", PORT);
+    });
 
     app.use("/", GeneralRoutes);
     app.use("/user", UserRoutes);
-
+    app.use("/appointments", AppointmentRoutes);
+    app.use("/drugs", DrugRoutes);
+    app.use("/prescription", PrescriptionRoutes);
+    app.use("lab-result", LabResultRoutes);
+    app.use("medical-imaging", MedicalImagingRoutes);
+    app.use("medical-testing", MedicalTestRoutes);
+    app.use("/medical-record", MedicalRecordRoutes);
   })
   .catch((err) => {
     "Sequelize Error: " + err.message;
