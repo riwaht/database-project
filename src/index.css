@@ -158,41 +158,46 @@ body.landingPageBody {
   color: #2a589c;
 }
 
+.landingPageWrapper {
+  height: 100vh;
+  width: 100%;
+}
+
 .medigraph-title {
   position: fixed;
-  top: 20px; 
-  right: 20px; 
-  font-family: 'Roboto', sans-serif;
+  top: 20px;
+  right: 20px;
+  font-family: "Roboto", sans-serif;
   font-style: normal;
   font-weight: 800;
   font-size: 24px;
   line-height: 28px;
-  color: #2A589C;
+  color: #2a589c;
 }
 
-.welcome{
+.welcome {
   position: fixed;
-  bottom: 180px; 
+  bottom: 180px;
   left: 70px;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-style: italic;
   font-weight: 700;
   font-size: 45px;
   line-height: 33px;
-  color: #2A589C;
+  color: #2a589c;
 }
 
-.Notifications{
+.Notifications {
   position: fixed;
   bottom: 140px;
   left: 70px;
   margin-top: 20px;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-style: normal;
   font-weight: 500;
   font-size: 22px;
   line-height: 19px;
-  color: #152C4E;
+  color: #152c4e;
 }
 
 .navbar {
@@ -200,7 +205,7 @@ body.landingPageBody {
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: #2a589c; 
+  background-color: #2a589c;
   color: white;
   padding: 10px 20px;
   display: flex;
@@ -216,7 +221,7 @@ body.landingPageBody {
 }
 
 .footerTitle {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-style: italic;
   font-weight: lighter;
   margin: 0;
@@ -225,11 +230,114 @@ body.landingPageBody {
 .footerIcons {
   display: flex;
   align-items: center;
-  
 }
 
 .footerIcon {
   margin-left: 10px;
   width: 24px;
   height: 24px;
+}
+
+.mainPage {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+.viewButtonsMain {
+  position: fixed;
+  top: 100px;
+  left: 40px;
+}
+
+.title {
+  font-family: "Roboto", sans-serif;
+  color: #2a589c;
+  font-weight: 700;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 18px;
+  color: #152c4e;
+  position: fixed;
+  top: 100px;
+  left: 45px;
+}
+
+.viewButtonsTable {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.patientInfo {
+  padding: 12px;
+}
+
+.imageSurgery {
+  padding: 30px;
+}
+
+.activeButtonMain {
+  background-color: #2a589c;
+  color: white;
+  padding: 8px 16px;
+  font-weight: 600;
+  border-radius: 4px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.inactiveButtonMain {
+  background-color: rgba(42, 88, 156, 0.42); /* White with 42% opacity */
+  color: white;
+  padding: 8px 16px;
+  font-weight: 600;
+  border-radius: 4px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.mainTableDiv {
+  height: 60vh;
+  width: 90%;
+  position: fixed;
+  left: 40px;
+  top: 160px;
+}
+
+.tableRow {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 15px 20px;
+  border-bottom: 1px solid #ffffff;
+}
+
+.tableCell {
+  flex: 0.2;
+  text-align: center;
+  padding: 5px;
+}
+
+.tableRowFilled {
+  display: flex;
+  background-color: white;
+  border-radius: 5px;
+  color: black;
+  width: 100%;
+  justify-content: space-between;
+  padding: 1px 0;
+}
+
+.mainText {
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  padding-left: 10px;
+  padding-top: 10px;
+  font-size: 16px;
+  line-height: 16px;
+  color: #ffffff;
 }
