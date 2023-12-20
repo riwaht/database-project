@@ -1,8 +1,6 @@
-# React + Vite
+# Database Project: MediGraph
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Team: Riwa Hoteit, Charbel El Bateh
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Run backend after changing directory to ./api/, running "npm i" and finally running "node index.js"
+- Run frontend after changing directory to the main one, running "npm i", and finally running "npm run dev"
