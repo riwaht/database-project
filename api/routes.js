@@ -54,14 +54,14 @@ router.post("/login", async (req, res) => {
         data: user,
         patientData: patient,
       });
-    } else if (user.role === "provider") {
+    } else if (user.role === "professional") {
       const provider = Provider.findProvider({ providerID: user.userID });
 
       return res.status(200).json({
         status: true,
         token: token,
         data: user,
-        providerData: provider,
+        professionalData: provider,
       });
     }
 
