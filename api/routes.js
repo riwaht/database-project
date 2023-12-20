@@ -2,6 +2,8 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const Users = require("./models/User");
+const Patients = require("./models/Patient");
+const Provider = require("./models/HealthcareProvider");
 const IsAuthenticatedMiddleware = require("./middlewares/IsAuthenticatedMiddleware");
 const { INTEGER } = require("sequelize");
 
@@ -9,7 +11,6 @@ const router = express.Router();
 
 // Login endpoint
 router.post("/login", async (req, res) => {
-  console.log(req);
   const { userID, password } = req.body;
   try {
     const user = await Users.findUser({ userID });
@@ -44,7 +45,27 @@ router.post("/login", async (req, res) => {
       }
     );
 
-    res.status(200).json({
+    if (user.role === "patient") {
+      const patient = Patients.findUser({ patientID: user.refernceID });
+
+      return res.status(200).json({
+        status: true,
+        token: token,
+        data: user,
+        patientData: patient,
+      });
+    } else if (user.role === "provider") {
+      const provider = Provider.findProvider({ providerID: user.refernceID });
+
+      return res.status(200).json({
+        status: true,
+        token: token,
+        data: user,
+        providerData: provider,
+      });
+    }
+
+    return res.status(200).json({
       status: true,
       token: token,
       data: user,
