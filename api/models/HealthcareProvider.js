@@ -42,25 +42,25 @@ module.exports = {
     this.model = HealthcareProvider;
   },
   createProvider: (provider) => {
-    return HealthcareProvider.create(provider);
+    return this.model.create(provider);
   },
   findProvider: (query) => {
-    return HealthcareProvider.findOne({
+    return this.model.findOne({
       where: query,
     });
   },
   updateProvider: (updatedValue, query) => {
-    return HealthcareProvider.update(updatedValue, {
+    return this.model.update(updatedValue, {
       where: query,
     });
   },
   findAllProviders: (query) => {
-    return HealthcareProvider.findAll({
+    return this.model.findAll({
       where: query,
     });
   },
   deleteProvider: (query) => {
-    return HealthcareProvider.destroy({
+    return this.model.destroy({
       where: query,
     });
   },

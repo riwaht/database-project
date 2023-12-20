@@ -15,13 +15,13 @@ router.get(
   PrescriptionController.getAllPrescriptions
 );
 
-router.get("/:id", isAuthenticatedMiddleware.check, (req, res) => {
-  const userRole = GetRole(req.user).role;
+router.get("/:id", (req, res) => {
+  const userRole = req.query.userRole;
 
   if (userRole === "admin" || userRole === "professional") {
-    PrescriptionController.getPrescriptionById;
+    PrescriptionController.getPrescriptionById(req, res);
   } else if (userRole === "patient") {
-    PrescriptionController.getPrescriptionByPatientId;
+    PrescriptionController.getPrescriptionByPatientId(req, res);
   } else {
     return res
       .status(403)

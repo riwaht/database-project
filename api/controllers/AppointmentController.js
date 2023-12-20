@@ -53,7 +53,7 @@ const AppointmentController = {
     try {
       const professionalAppointments =
         await AppointmentModel.findAllAppointments({
-          professionalID: req.user.id,
+          providerID: req.params.id,
         });
 
       if (!professionalAppointments) {
@@ -74,8 +74,11 @@ const AppointmentController = {
   getPatientAppointments: async (req, res) => {
     try {
       const patientAppointments = await AppointmentModel.find({
-        patientID: req.user.id,
+        patientID: req.params.id,
       });
+
+      console.log(patientAppointments);
+      console.log(req);
       return res
         .status(200)
         .json({ success: true, appointments: patientAppointments });

@@ -40,11 +40,9 @@ const PrescriptionController = {
 
   getPrescriptionByPatientId: async (req, res, next) => {
     try {
-      const { id, patientID } = req.params;
+      const { id } = req.params;
 
-      const prescription = await PrescriptionModel.findOne({
-        where: { recordID: id, patientID: patientID },
-      });
+      const prescription = await PrescriptionModel.findPrescription({ patientID: id });
 
       if (!prescription) {
         return res

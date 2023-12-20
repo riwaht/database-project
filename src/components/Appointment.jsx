@@ -13,7 +13,14 @@ const Appointment = () => {
   useEffect(() => {
     const getAppointment = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/appointment/${appointmentID}`);
+        const token = localStorage.getItem('token');
+
+        // Set the default Authorization header for all future requests
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+        const response = await axios.get(`http://localhost:8000/appointment/${appointmentID}`, {
+          userRole: 'provider'
+        });
         setAppointment(response.data);
         console.log(response.data);
       } catch (error) {

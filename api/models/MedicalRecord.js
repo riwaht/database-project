@@ -41,29 +41,29 @@ module.exports = {
   },
 
   createMedicalRecord: (medicalRecord) => {
-    return MedicalRecord.create(medicalRecord);
+    return this.model.create(medicalRecord);
   },
 
   findMedicalRecord: (query) => {
-    return MedicalRecord.findOne({
+    return this.model.findOne({
       where: query,
     });
   },
 
   updateMedicalRecord: (updatedValue, query) => {
-    return MedicalRecord.update(updatedValue, {
+    return this.model.update(updatedValue, {
       where: query,
     });
   },
 
   findAllMedicalRecords: (query) => {
-    return MedicalRecord.findAll({
+    return this.model.findAll({
       where: query,
     });
   },
 
   deleteMedicalRecord: (query) => {
-    return MedicalRecord.destroy({
+    return this.model.destroy({
       where: query,
     });
   },

@@ -15,8 +15,8 @@ router.get(
   LabResultController.getAllLabResults
 );
 
-router.get("/:id", isAuthenticatedMiddleware.check, (req, res) => {
-  const userRole = GetRole(req.user).role;
+router.get("/:id", (req, res) => {
+  const userRole = req.query.userRole;
 
   if (userRole === "admin" || userRole === "professional") {
     return LabResultController.getLabResultByPatientId;

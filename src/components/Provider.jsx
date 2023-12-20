@@ -33,8 +33,14 @@ const Provider = () => {
     useEffect(() => {
         const fetchAppointments = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/appointment/${userID}`);
+                const response = await axios.get(`http://localhost:8000/appointment/${userID}`, {
+                    params: {
+                        userRole: 'professional'
+                    }
+                });
+
                 setAppointments(response.data); // Update state with fetched appointments
+                console.log(response)
             }
             catch (error) {
                 console.error('Error fetching appointments:', error);
@@ -58,9 +64,9 @@ const Provider = () => {
                     return (
                         <div className="tableRow">
                             <button className="tableRowFilled" onClick={() => navigate('/patient')}>
-                                <div className="tableCell">{patient.id}</div>
-                                <div className="tableCell">{patient.first_name}</div>
-                                <div className="tableCell">{patient.last_name}</div>
+                                <div className="tableCell">{patient.patientID}</div>
+                                <div className="tableCell">{patient.firstName}</div>
+                                <div className="tableCell">{patient.lastName}</div>
                                 <div className="tableCell">
                                     // TODO: Get last appointment date
                                 </div>
@@ -83,19 +89,21 @@ const Provider = () => {
                     <div className="tableCell">Date</div>
                 </div>
                 {/* Add data rows here */}
-                {appointments.map((appointment) => {
-                    return (
-                        <div className="tableRow">
-                            <button className="tableRowFilled" onClick={() => navigate('/appointment')}>
-                                <div className="tableCell">{appointment.id}</div>
-                                <div className="tableCell">{appointment.patient_id}</div>
-                                <div className="tableCell">{appointment.status}</div>
-                                <div className="tableCell">{appointment.appointmentType}</div>
-                                <div className="tableCell">{appointment.date}</div>
-                            </button>
+                {Array.isArray(appointments.appointments) && appointments.appointments.length > 0 ? (
+                    appointments.appointments.map(appointment => (
+                        <div className="tableRow" key={appointment.appointmentID}>
+                            <div className="tableCell">{ appointment.appointmentID}</div>
+                            <div className="tableCell">{appointment.patientID}</div>
+                            <div className="tableCell">{appointment.status}</div>
+                            <div className="tableCell">{appointment.appointmentType}</div>
+                            <div className="tableCell">{appointment.date}</div>
                         </div>
-                    );
-                })}
+                    ))
+                ) : (
+                    <div className="tableRow">
+                        <div className="tableCell" colSpan="5">No appointments found</div>
+                    </div>
+                )}
             </div>
         );
     };
@@ -130,7 +138,7 @@ const Provider = () => {
             </div>
             <footer className="navbar">
                 <div className="navbarContent">
-                    <div className="footerTitle">Dr. Riwa</div>
+                    <div className="footerTitle">Dr. {userName}</div>
                     <div className="footerIcons">
                         <button className="footerIcon" onClick={() => navigate('/landing')}>
                             <img src={home}></img>

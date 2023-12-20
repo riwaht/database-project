@@ -8,12 +8,14 @@ const Patient = () => {
   const [view, setView] = useState('profile');
   const [viewIn, setViewIn] = useState('tests');
   const [prescriptions, setPrescriptions] = useState(null);
-  const [patientInfo, setPatientInfo] = useState(null);
-  const [providerInfo, setProviderInfo] = useState(null);
   const [tests, setTests] = useState(null);
   const [results, setResults] = useState(null);
   const navigate = useNavigate();
   const userID = localStorage.getItem('userID');
+  const username = localStorage.getItem('username');
+  const lastName = localStorage.getItem('lastName');
+  const dob = localStorage.getItem('dob');
+  const gender = localStorage.getItem('gender');
 
   const handleViewChange = (newView) => {
     setView(newView);
@@ -26,7 +28,12 @@ const Patient = () => {
   useEffect(() => {
     const fetchPrescriptions = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/prescription/${userID}`);
+        const response = await axios.get(`http://localhost:8000/prescription/${userID}`, {
+          params: {
+            userRole: 'patient'
+          }
+        });
+        console.log(response)
         setPrescriptions(response.data); // Update state with fetched prescriptions
       } catch (error) {
         console.error('Error fetching prescriptions:', error);
@@ -36,25 +43,15 @@ const Patient = () => {
     fetchPrescriptions();
   }, []);
 
-  useEffect(() => {
-    const fetchPatientInfo = async () => {
-      try {
-        if (userID) {
-          const response = await axios.get(`http://localhost:8000/user/${userID}`);
-          setPatientInfo(response.data); // Update state with fetched patient info
-        }
-      } catch (error) {
-        console.error('Error fetching patient info:', error);
-      }
-    };
-
-    fetchPatientInfo();
-  }, []);
 
   useEffect(() => {
     const fetchTests = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/medical-imaging/${userID}`);
+        const response = await axios.get(`http://localhost:8000/medical-testing/${userID}`, {
+          params: {
+            userRole: 'patient'
+          }
+        });
         setTests(response.data); // Update state with fetched tests
       } catch (error) {
         console.error('Error fetching tests:', error);
@@ -67,7 +64,11 @@ const Patient = () => {
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/lab-result/${userID}`);
+        const response = await axios.get(`http://localhost:8000/lab-result/${userID}`, {
+          params: {
+            userRole: 'patient'
+          }
+        });
         setResults(response.data); // Update state with fetched results
       } catch (error) {
         console.error('Error fetching results:', error);
@@ -77,33 +78,15 @@ const Patient = () => {
     fetchResults();
   }, []);
 
-  useEffect(() => {
-    const fetchProviderInfo = async () => {
-      try {
-        if (userID) {
-          const response = await axios.get(`http://localhost:8000/user/${userID}`);
-          setProviderInfo(response.data); // Update state with fetched provider info
-        }
-      } catch (error) {
-        console.error('Error fetching provider info:', error);
-      }
-    };
-
-    fetchProviderInfo();
-  }, []);
 
   const renderProfileTable = () => {
-    if (!patientInfo) {
-      return <p>Loading...</p>;
-    }
     return (
       <div className="mainTable" style={{ backgroundColor: '#2a589c', color: 'white' }}>
         <div className='patientInfo'>
-          <p className='mainText'>First Name: {patientInfo.firstName}</p>
-          <p className='mainText'>Last Name: {patientInfo.lastName}</p>
-          <p className='mainText'>Date of Birth: {patientInfo.dateOfBirth}</p>
-          <p className='mainText'>Gender: {patientInfo.gender}</p>
-          <p className='mainText'>Main Provider: {providerInfo.firstName} {providerInfo.lastName}</p>
+          <p className='mainText'>First Name: {username}</p>
+          <p className='mainText'>Last Name: {lastName}</p>
+          <p className='mainText'>Date of Birth: {dob}</p>
+          <p className='mainText'>Gender: {gender}</p>
         </div>
       </div>
     );
@@ -175,6 +158,7 @@ const Patient = () => {
   };
 
   const renderPrescriptionTable = () => {
+    console.log(prescriptions)
     if (!prescriptions) {
       return <p>Loading...</p>;
     }
@@ -184,14 +168,18 @@ const Patient = () => {
           <div className='tableCell'>ID</div>
           <div className="tableCell">Date</div>
         </div>
-        {prescription && prescriptions.map(prescription => (
+        {Array.isArray(prescriptions.prescription) && prescriptions.prescription.length > 0 ? (prescriptions.prescription.map(prescription => (
           <div className="tableRow" key={prescription.prescriptionID}>
             <button className="tableRowFilled" onClick={() => navigate('/prescription')}>
               <div className="tableCell">{prescription.prescriptionID}</div>
               <div className="tableCell">{prescription.dispenseDate}</div>
             </button>
           </div>
-        ))}
+        ))) : (
+          <div className="tableRow">
+            <div className="tableCell" colSpan="5">No prescriptions found</div>
+          </div>
+        )}
       </div >
     );
   };
@@ -233,7 +221,7 @@ const Patient = () => {
       </div>
       <footer className="navbar">
         <div className="navbarContent">
-          <div className="footerTitle">Charbel</div>
+          <div className="footerTitle">{username}</div>
           <div className="footerIcons">
             <button className="footerIcon" onClick={() => navigate('/landing')}>
               <img src={home}></img>

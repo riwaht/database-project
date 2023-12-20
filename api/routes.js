@@ -46,7 +46,7 @@ router.post("/login", async (req, res) => {
     );
 
     if (user.role === "patient") {
-      const patient = Patient.findUser({ patientID: user.userID });
+      const patient = await Patient.findUser({ patientID: user.userID });
 
       return res.status(200).json({
         status: true,
@@ -54,8 +54,10 @@ router.post("/login", async (req, res) => {
         data: user,
         patientData: patient,
       });
-    } else if (user.role === "provider") {
-      const provider = Provider.findProvider({ providerID: user.userID });
+    } else if (user.role === "professional") {
+      const provider = await Provider.findProvider({ providerID: user.userID });
+
+      console.log(provider)
 
       return res.status(200).json({
         status: true,

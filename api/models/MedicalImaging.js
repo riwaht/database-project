@@ -41,25 +41,25 @@ module.exports = {
   },
 
   createMedicalImaging: (medicalImaging) => {
-    return MedicalImaging.create(medicalImaging);
+    return this.model.create(medicalImaging);
   },
   findMedicalImaging: (query) => {
-    return MedicalImaging.findOne({
+    return this.model.findOne({
       where: query,
     });
   },
   updateMedicalImaging: (updatedValue, query) => {
-    return MedicalImaging.update(updatedValue, {
+    return this.model.update(updatedValue, {
       where: query,
     });
   },
   findAllMedicalImaging: (query) => {
-    return MedicalImaging.findAll({
+    return this.model.findAll({
       where: query,
     });
   },
   deleteMedicalImaging: (query) => {
-    return MedicalImaging.destroy({
+    return this.model.destroy({
       where: query,
     });
   },

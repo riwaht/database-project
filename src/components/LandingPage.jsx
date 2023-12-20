@@ -11,23 +11,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
   const [info, setInfo] = useState(null);
 
-  useEffect(() => {
-    const userID = localStorage.getItem('userID');
-    const fetchInfo = async () => {
-      try {
-        if (userID) {
-          const response = await axios.get(`http://localhost:8000/user/${userID}`);
-          setInfo(response.data); // Update state with fetched patient info
-        }
-      } catch (error) {
-        console.error('Error fetching patient info:', error);
-      }
-    };
-
-    fetchInfo();
-  }, []);
-
-  const username = info?.firstname || 'User';
+  const username = localStorage.getItem('username');
 
   useEffect(() => {
     document.body.classList.add('landingPageBody');
@@ -39,14 +23,11 @@ const LandingPage = () => {
   // get click event on the page
   useEffect(() => {
     const landingPageWrapper = document.querySelector('.landingPageBody');
-    console.log('landingPageWrapper', landingPageWrapper);
 
     const handleClick = (event) => {
       if (event.target === landingPageWrapper) {
-        console.log('clicked on landing page');
         if (view === 'patient') {
           navigate('/patient', { state: { view } });
-          console.log('navigated to patient');
         } else {
           navigate('/provider', { state: { view } });
         }
@@ -72,7 +53,7 @@ const LandingPage = () => {
         {view === 'provider' && (
           <div>
             <div className='patientDiv'>
-              <div className="welcome">Welcome, {username}.</div>
+              <div className="welcome">Welcome, Dr. {username}.</div>
             </div>
           </div>
         )}
@@ -81,14 +62,15 @@ const LandingPage = () => {
         <div className="navbarContent">
           <div className="footerTitle">Click anywhere to continue</div>
           <div className="footerIcons">
-            <button className="footerIcon" onC>
+            <button className="footerIcon">
               <img src={home}></img>
             </button>
             <button className="footerIcon"
               onClick={() => {
-                navigate('/');
+                navigate('/'), localStorage.clear();
               }}
             >
+              
               <img src={back}></img>
             </button>
           </div>

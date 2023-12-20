@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Login = () => {
+    localStorage.clear();
     const [view, setView] = useState('patient'); // 'patient' or 'provider'
     const [errorMessage, setErrorMessage] = useState(''); // Error message to display (if any)
     const [forgotPassword, setForgotPassword] = useState(false); // True if user clicked 'Forgot your password?'
@@ -26,13 +27,24 @@ const Login = () => {
                 userID,
                 password,
             });
-            console.log(response);
-
             // save response data to local storage to be used in other pages
             localStorage.setItem('userID', response.data.data.userID);
 
+            if (view === 'patient') {
+                console.log(response.data.patientData)
+                localStorage.setItem('username', response.data.patientData.firstName);
+                localStorage.setItem('lastName', response.data.patientData.lastName);
+                localStorage.setItem('gender', response.data.patientData.gender);
+                localStorage.setItem('dob', response.data.patientData.dateOfBirth);
+
+            } else if (view === 'provider') {
+                localStorage.setItem('username', response.data.providerData.firstName);
+                localStorage.setItem('lastName', response.data.providerData.lastName);
+                localStorage.setItem('profession', response.data.providerData.profession);
+            }
+
             const token = localStorage.getItem('token');
-            
+
             // Set the default Authorization header for all future requests
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
@@ -41,6 +53,7 @@ const Login = () => {
         } catch (error) {
             // Handle login failure (display error message, etc.)
             setErrorMessage('Login failed. Please try again.');
+            console.log(error)
         }
     };
 
@@ -59,7 +72,7 @@ const Login = () => {
             localStorage.setItem('userID', response.data.data.userID);
 
             const token = localStorage.getItem('token');
-            
+
             // Set the default Authorization header for all future requests
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
@@ -141,7 +154,7 @@ const Login = () => {
                             </div>
                             <div className="inputGroup">
                                 <label className='password'>Password</label>
-                                <input type="password" id="adminPassword" placeholder="Insert Password..." style = {{marginBottom: "20px"}} />
+                                <input type="password" id="adminPassword" placeholder="Insert Password..." style={{ marginBottom: "20px" }} />
                             </div>
                             <button className="loginButton" onClick={handleAdminLogin}>Login</button>
                         </div>

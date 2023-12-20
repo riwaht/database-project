@@ -15,8 +15,8 @@ router.get(
   MedicalImagingController.getAllMedicalImaging
 );
 
-router.get("/:id", isAuthenticatedMiddleware.check, (req, res, next) => {
-  const userRole = GetRole(req.user).role;
+router.get("/:id", (req, res, next) => {
+  const userRole = req.query.userRole;
 
   if (userRole === "professional" || userRole === "admin") {
     return MedicalImagingController.getMedicalImagingById(req, res, next);

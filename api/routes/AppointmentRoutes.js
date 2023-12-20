@@ -15,9 +15,8 @@ router.get(
   AppointmentController.getAllAppointments
 );
 
-router.get("/:id", isAuthenticatedMiddleware.check, (req, res, next) => {
-  const userRole = GetRole(req.user).role;
-
+router.get("/:id", (req, res, next) => {
+  const userRole = req.query.userRole;
   if (userRole === "professional") {
     return AppointmentController.getProfessionalAppointments(req, res, next);
   } else if (userRole === "patient") {

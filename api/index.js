@@ -80,7 +80,7 @@ sequelize
 
     app.use("/", GeneralRoutes);
     app.use("/user", UserRoutes);
-    app.use("/appointments", AppointmentRoutes);
+    app.use("/appointment", AppointmentRoutes);
     app.use("/drugs", DrugRoutes);
     app.use("/prescription", PrescriptionRoutes);
     app.use("/lab-result", LabResultRoutes);

@@ -28,25 +28,25 @@ module.exports = {
     this.model = MedicalTests;
   },
   createMedicalTest: (medicalTest) => {
-    return MedicalTests.create(medicalTest);
+    return this.model.create(medicalTest);
   },
   findMedicalTest: (query) => {
-    return MedicalTests.findOne({
+    return this.model.findOne({
       where: query,
     });
   },
   updateMedicalTest: (updatedValue, query) => {
-    return MedicalTests.update(updatedValue, {
+    return this.model.update(updatedValue, {
       where: query,
     });
   },
   findAllMedicalTests: (query) => {
-    return MedicalTests.findAll({
+    return this.model.findAll({
       where: query,
     });
   },
   deleteMedicalTest: (query) => {
-    return MedicalTests.destroy({
+    return this.model.destroy({
       where: query,
     });
   },

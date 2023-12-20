@@ -37,25 +37,25 @@ module.exports = {
     this.model = LabResults;
   },
   createLabResult: (labResult) => {
-    return LabResults.create(labResult);
+    return this.model.create(labResult);
   },
   findLabResult: (query) => {
-    return LabResults.findOne({
+    return this.model.findOne({
       where: query,
     });
   },
   updateLabResult: (updatedValue, query) => {
-    return LabResults.update(updatedValue, {
+    return this.model.update(updatedValue, {
       where: query,
     });
   },
   findAllLabResults: (query) => {
-    return LabResults.findAll({
+    return this.model.findAll({
       where: query,
     });
   },
   deleteLabResult: (query) => {
-    return LabResults.destroy({
+    return this.model.destroy({
       where: query,
     });
   },
