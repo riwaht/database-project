@@ -143,6 +143,15 @@ input[type="password"] {
   font-size: 13px;
 }
 
+.forgotError{
+  color: red;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  font-style: italic;
+  font-weight: 300;
+  margin-top: 5px;
+}
+
 body.landingPageBody {
   margin: 0;
   padding: 0;

@@ -27,6 +27,8 @@ const LandingPage = () => {
     fetchInfo();
   }, []);
 
+  const username = info?.firstname || 'User';
+
   useEffect(() => {
     document.body.classList.add('landingPageBody');
     return () => {
@@ -64,15 +66,13 @@ const LandingPage = () => {
         <h1 className="medigraph-title">MediGraph</h1>
         {view === 'patient' && (
           <div className='patientDiv'>
-            <div className="welcome">Welcome, {name}.</div>
-            <div className='Notifications'>You have 10 pending notifications.</div>
+            <div className="welcome">Welcome, {username}.</div>
           </div>
         )}
         {view === 'provider' && (
           <div>
             <div className='patientDiv'>
-              <div className="welcome">Welcome, Dr. Riwa.</div>
-              <div className='Notifications'>You have 10 pending notifications.</div>
+              <div className="welcome">Welcome, {username}.</div>
             </div>
           </div>
         )}
@@ -81,7 +81,7 @@ const LandingPage = () => {
         <div className="navbarContent">
           <div className="footerTitle">Click anywhere to continue</div>
           <div className="footerIcons">
-            <button className="footerIcon">
+            <button className="footerIcon" onC>
               <img src={home}></img>
             </button>
             <button className="footerIcon"
