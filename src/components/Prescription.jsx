@@ -1,21 +1,38 @@
 import React from 'react'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import home from '../assets/home.svg';
 import back from '../assets/back.svg';
+import axios from 'axios';
 
 const Prescription = () => {
   const navigate = useNavigate();
+  const [prescription, setPrescription] = useState(null);
+
+  useEffect(() => {
+    const getPrescription = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/prescription/${prescriptionID}`);
+        setPrescription(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error('Prescription retrieval failed:', error.response.data.error.message);
+      }
+    };
+    getPrescription();
+  }, []);
 
   const renderPrescriptionTable = () => {
+    if (!prescription) {
+      return <p className='mainText'>Loading...</p>;
+    }
+
     return (
       <div className="mainTable" style={{ backgroundColor: '#2a589c', color: 'white', borderRadius: '10px', display: 'flex', flexDirection: 'row' }}>
         <div className='patientInfo'>
-          <p className='mainText'>Name: Ibuprofen</p>
-          <p className='mainText'>Category: Nonsteroidal Anti-inflammatory Drug (NSAID)</p>
-          <p className='mainText'>Quantity: 200mg tablets, 30 tablets</p>
-          <p className='mainText'>Date given: 10/11/2023</p>
-          <p className='mainText'>Current Day: Day 5/30</p>
+          <p className='mainText'>Name: {prescription.prescriptionName}</p>
+          <p className='mainText'>Category: {prescription.prescriptionCategory}</p>
+          <p className='mainText'>Quantity: {prescription.quantity}</p>
         </div>
       </div>
     );
@@ -32,7 +49,7 @@ const Prescription = () => {
   return (
     <div className="mainPage">
       <h1 className="medigraph-title">MediGraph</h1>
-      <p className='title'>Prescription #1044</p>
+      <p className='title'>Prescription #{prescription.prescriptionID}</p>
       <div className="mainTableDiv">
         {renderPrescriptionTable()}
       </div>

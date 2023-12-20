@@ -83,9 +83,9 @@ sequelize
     app.use("/appointments", AppointmentRoutes);
     app.use("/drugs", DrugRoutes);
     app.use("/prescription", PrescriptionRoutes);
-    app.use("lab-result", LabResultRoutes);
-    app.use("medical-imaging", MedicalImagingRoutes);
-    app.use("medical-testing", MedicalTestRoutes);
+    app.use("/lab-result", LabResultRoutes);
+    app.use("/medical-imaging", MedicalImagingRoutes);
+    app.use("/medical-testing", MedicalTestRoutes);
     app.use("/medical-record", MedicalRecordRoutes);
   })
   .catch((err) => {

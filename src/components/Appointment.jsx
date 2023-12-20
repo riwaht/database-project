@@ -4,19 +4,33 @@ import { useNavigate } from 'react-router-dom';
 import home from '../assets/home.svg';
 import back from '../assets/back.svg';
 import knee from '../assets/knee.svg';
+import axios from 'axios';
 
 const Appointment = () => {
   const navigate = useNavigate();
+  const [appointment, setAppointment] = useState(null);
+
+  useEffect(() => {
+    const getAppointment = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/appointment/${appointmentID}`);
+        setAppointment(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error('Appointment retrieval failed:', error.response.data.error.message);
+      }
+    };
+    getAppointment();
+  }, []);
 
   const renderProfileTable = () => {
     return (
       <div className="mainTable" style={{ backgroundColor: '#2a589c', color: 'white', borderRadius: '10px', display: 'flex', flexDirection: 'row' }}>
         <div className='patientInfo'>
-          <p className='mainText'>Patient: John Doe</p>
-          <p className='mainText'>Type: Surgery</p>
-          <p className='mainText'>Status: Incomplete</p>
-          <p className='mainText'>Date: 19/11/2023 20:35</p>
-          <p className='mainText'>Description: Knee Arthoscopy</p>
+          <p className='mainText'>Patient: {appointment.patientID}</p>
+          <p className='mainText'>Type: {appointment.appointmentType}</p>
+          <p className='mainText'>Date: {appointment.date}</p>
+          <p className='mainText'>Description: {appointment.description}</p>
         </div>
         <div className='imageSurgery'>
           <img src={knee}></img>
@@ -36,7 +50,7 @@ const Appointment = () => {
   return (
     <div className="mainPage">
       <h1 className="medigraph-title">MediGraph</h1>
-      <p className='title'>211603</p>
+      <p className='title'>{appointment.appointmentID}</p>
       <div className="mainTableDiv">
         {renderProfileTable()}
       </div>

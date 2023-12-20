@@ -2,14 +2,47 @@ import { React, useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import home from '../assets/home.svg';
 import back from '../assets/back.svg';
+import axios from 'axios';
 
 const Provider = () => {
     const [view, setView] = useState('upcoming'); // 'patient' or 'provider'
     const navigate = useNavigate();
+    const [patients, setPatients] = useState([]);
+    const [appointments, setAppointments] = useState([]);
+    const userID = localStorage.getItem('userID');
+    const patientID = localStorage.setItem('patientID', 1);
 
     const handleViewChange = (newView) => {
         setView(newView);
     };
+
+    useEffect(() => {
+        const fetchPatients = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8000/user/${userID}`);
+                setPatients(response.data); // Update state with fetched patients
+            }
+            catch (error) {
+                console.error('Error fetching patients:', error);
+            }
+        };
+
+        fetchPatients();
+    }, []);
+
+    useEffect(() => {
+        const fetchAppointments = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8000/appointment/${userID}`);
+                setAppointments(response.data); // Update state with fetched appointments
+            }
+            catch (error) {
+                console.error('Error fetching appointments:', error);
+            }
+        };
+
+        fetchAppointments();
+    }, []);
 
     const renderPatientsTable = () => {
         return (
@@ -20,31 +53,21 @@ const Provider = () => {
                     <div className="tableCell">Last Name</div>
                     <div className="tableCell">Last Appointment</div>
                 </div>
-                {/* Add data rows here */}
-                <div className="tableRow">
-                    <button className="tableRowFilled" onClick={() => navigate('/records')}>
-                        <div className="tableCell">211603</div>
-                        <div className="tableCell">John</div>
-                        <div className="tableCell">Doe</div>
-                        <div className="tableCell">2023-11-19</div>
-                    </button>
-                </div>
-                <div className="tableRow">
-                    <button className="tableRowFilled" onClick={() => navigate('/records')}>
-                        <div className="tableCell">211603</div>
-                        <div className="tableCell">John</div>
-                        <div className="tableCell">Doe</div>
-                        <div className="tableCell">2023-11-19</div>
-                    </button>
-                </div>
-                <div className="tableRow">
-                    <button className="tableRowFilled" onClick={() => navigate('/records')}>
-                        <div className="tableCell">211603</div>
-                        <div className="tableCell">John</div>
-                        <div className="tableCell">Doe</div>
-                        <div className="tableCell">2023-11-19</div>
-                    </button>
-                </div>
+                {patients.map((patient) => {
+                    patientID = patient.id;
+                    return (
+                        <div className="tableRow">
+                            <button className="tableRowFilled" onClick={() => navigate('/patient')}>
+                                <div className="tableCell">{patient.id}</div>
+                                <div className="tableCell">{patient.first_name}</div>
+                                <div className="tableCell">{patient.last_name}</div>
+                                <div className="tableCell">
+                                    // TODO: Get last appointment date
+                                </div>
+                            </button>
+                        </div>
+                    );
+                })}
             </div>
         );
     };
@@ -60,33 +83,19 @@ const Provider = () => {
                     <div className="tableCell">Date</div>
                 </div>
                 {/* Add data rows here */}
-                <div className="tableRow">
-                    <button className="tableRowFilled" onClick={() => navigate('/appointment')}>
-                        <div className="tableCell">211603</div>
-                        <div className="tableCell">John Doe</div>
-                        <div className="tableCell">Incomplete</div>
-                        <div className="tableCell">Surgery</div>
-                        <div className="tableCell">2023-11-19</div>
-                    </button>
-                </div>
-                <div className="tableRow">
-                    <button className="tableRowFilled" onClick={() => navigate('/appointment')}>
-                        <div className="tableCell">211603</div>
-                        <div className="tableCell">John Doe</div>
-                        <div className="tableCell">Incomplete</div>
-                        <div className="tableCell">Surgery</div>
-                        <div className="tableCell">2023-11-19</div>
-                    </button>
-                </div>
-                <div className="tableRow">
-                    <button className="tableRowFilled" onClick={() => navigate('/appointment')}>
-                        <div className="tableCell">211603</div>
-                        <div className="tableCell">John Doe</div>
-                        <div className="tableCell">Incomplete</div>
-                        <div className="tableCell">Surgery</div>
-                        <div className="tableCell">2023-11-19</div>
-                    </button>
-                </div>
+                {appointments.map((appointment) => {
+                    return (
+                        <div className="tableRow">
+                            <button className="tableRowFilled" onClick={() => navigate('/appointment')}>
+                                <div className="tableCell">{appointment.id}</div>
+                                <div className="tableCell">{appointment.patient_id}</div>
+                                <div className="tableCell">{appointment.status}</div>
+                                <div className="tableCell">{appointment.appointmentType}</div>
+                                <div className="tableCell">{appointment.date}</div>
+                            </button>
+                        </div>
+                    );
+                })}
             </div>
         );
     };

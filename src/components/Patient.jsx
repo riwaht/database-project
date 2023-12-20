@@ -2,11 +2,18 @@ import { React, useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import home from '../assets/home.svg';
 import back from '../assets/back.svg';
+import axios from 'axios';
 
 const Patient = () => {
   const [view, setView] = useState('profile');
   const [viewIn, setViewIn] = useState('tests');
+  const [prescriptions, setPrescriptions] = useState(null);
+  const [patientInfo, setPatientInfo] = useState(null);
+  const [providerInfo, setProviderInfo] = useState(null);
+  const [tests, setTests] = useState(null);
+  const [results, setResults] = useState(null);
   const navigate = useNavigate();
+  const userID = localStorage.getItem('userID');
 
   const handleViewChange = (newView) => {
     setView(newView);
@@ -16,15 +23,87 @@ const Patient = () => {
     setViewIn(newView);
   };
 
+  useEffect(() => {
+    const fetchPrescriptions = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/prescription/${userID}`);
+        setPrescriptions(response.data); // Update state with fetched prescriptions
+      } catch (error) {
+        console.error('Error fetching prescriptions:', error);
+      }
+    };
+
+    fetchPrescriptions();
+  }, []);
+
+  useEffect(() => {
+    const fetchPatientInfo = async () => {
+      try {
+        if (userID) {
+          const response = await axios.get(`http://localhost:8000/user/${userID}`);
+          setPatientInfo(response.data); // Update state with fetched patient info
+        }
+      } catch (error) {
+        console.error('Error fetching patient info:', error);
+      }
+    };
+
+    fetchPatientInfo();
+  }, []);
+
+  useEffect(() => {
+    const fetchTests = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/medical-imaging/${userID}`);
+        setTests(response.data); // Update state with fetched tests
+      } catch (error) {
+        console.error('Error fetching tests:', error);
+      }
+    };
+
+    fetchTests();
+  }, []);
+
+  useEffect(() => {
+    const fetchResults = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/lab-result/${userID}`);
+        setResults(response.data); // Update state with fetched results
+      } catch (error) {
+        console.error('Error fetching results:', error);
+      }
+    };
+
+    fetchResults();
+  }, []);
+
+  useEffect(() => {
+    const fetchProviderInfo = async () => {
+      try {
+        if (userID) {
+          const response = await axios.get(`http://localhost:8000/user/${userID}`);
+          setProviderInfo(response.data); // Update state with fetched provider info
+        }
+      } catch (error) {
+        console.error('Error fetching provider info:', error);
+      }
+    };
+
+    fetchProviderInfo();
+  }, []);
+
   const renderProfileTable = () => {
+    if (!patientInfo) {
+      return <p>Loading...</p>;
+    }
     return (
       <div className="mainTable" style={{ backgroundColor: '#2a589c', color: 'white' }}>
         <div className='patientInfo'>
-          <p className='mainText'>First Name: Charbel</p>
-          <p className='mainText'>Last Name: El Bateh</p>
-          <p className='mainText'>Date of Birth: 1/1/2002</p>
-          <p className='mainText'>Gender: M</p>
-          <p className='mainText'>Main Healthcare Provider: Dr. Riwa</p>
+          <p className='mainText'>First Name: {patientInfo.firstName}</p>
+          <p className='mainText'>Last Name: {patientInfo.lastName}</p>
+          <p className='mainText'>Date of Birth: {patientInfo.dateOfBirth}</p>
+          <p className='mainText'>Gender: {patientInfo.gender}</p>
+          <p className='mainText'>Main Provider: {providerInfo.firstName} {providerInfo.lastName}</p>
         </div>
       </div>
     );
@@ -61,20 +140,15 @@ const Patient = () => {
           <div className="tableCell">Date</div>
           <div className="tableCell">Results</div>
         </div>
-        <div className="tableRow">
-          <button className="tableRowFilled" onClick={() => navigate('/test')}>
-            <div className="tableCell">19405</div>
-            <div className="tableCell">10/11/2023</div>
-            <div className="tableCell">Incomplete</div>
-          </button>
-        </div>
-        <div className="tableRow">
-          <button className="tableRowFilled" onClick={() => navigate('/test')}>
-            <div className="tableCell">19404</div>
-            <div className="tableCell">10/11/2023</div>
-            <div className="tableCell">Complete</div>
-          </button>
-        </div>
+        {tests && tests.map(test => (
+          <div className="tableRow" key={test.testID}>
+            <button className="tableRowFilled" onClick={() => navigate('/test')}>
+              <div className="tableCell">{test.testID}</div>
+              <div className="tableCell">{test.testDate}</div>
+              <div className="tableCell">{test.resultsData}</div>
+            </button>
+          </div>
+        ))}
       </div>
     );
   };
@@ -87,47 +161,38 @@ const Patient = () => {
           <div className="tableCell">Date</div>
           <div className="tableCell">Results</div>
         </div>
-        <div className="tableRow">
-          <button className="tableRowFilled" onClick={() => navigate('/lab')}>
-            <div className="tableCell">1045</div>
-            <div className="tableCell">10/11/2023</div>
-            <div className="tableCell">Incomplete</div>
-          </button>
-        </div>
-        <div className="tableRow">
-          <button className="tableRowFilled" onClick={() => navigate('/lab')}>
-            <div className="tableCell">1044</div>
-            <div className="tableCell">10/11/2023</div>
-            <div className="tableCell">Complete</div>
-          </button>
-        </div>
+        {results && results.map(result => (
+          <div className="tableRow" key={result.resultID}>
+            <button className="tableRowFilled" onClick={() => navigate('/result')}>
+              <div className="tableCell">{result.resultID}</div>
+              <div className="tableCell">{result.resultDate}</div>
+              <div className="tableCell">{result.testResult}</div>
+            </button>
+          </div>
+        ))}
       </div>
     );
   };
 
   const renderPrescriptionTable = () => {
+    if (!prescriptions) {
+      return <p>Loading...</p>;
+    }
     return (
       <div className="mainTable" style={{ backgroundColor: '#2a589c', color: 'white' }}>
         <div className="tableRow">
           <div className='tableCell'>ID</div>
           <div className="tableCell">Date</div>
-          <div className="tableCell">Timing</div>
         </div>
-        <div className="tableRow">
-          <button className="tableRowFilled" onClick={() => navigate('/prescription')}>
-            <div className="tableCell">456</div>
-            <div className="tableCell">10/11/2023</div>
-            <div className="tableCell">Ongoing</div>
-          </button>
-        </div>
-        <div className="tableRow">
-          <button className="tableRowFilled" onClick={() => navigate('/prescription')}>
-            <div className="tableCell">455</div>
-            <div className="tableCell">10/11/2023</div>
-            <div className="tableCell">Complete</div>
-          </button>
-        </div>
-      </div>
+        {prescription && prescriptions.map(prescription => (
+          <div className="tableRow" key={prescription.prescriptionID}>
+            <button className="tableRowFilled" onClick={() => navigate('/prescription')}>
+              <div className="tableCell">{prescription.prescriptionID}</div>
+              <div className="tableCell">{prescription.dispenseDate}</div>
+            </button>
+          </div>
+        ))}
+      </div >
     );
   };
 

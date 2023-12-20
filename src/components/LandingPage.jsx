@@ -1,13 +1,31 @@
 import React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import home from '../assets/home.svg';
 import back from '../assets/back.svg';
+import axios from 'axios';
 
 const LandingPage = () => {
   const location = useLocation();
   const view = location.state?.view || 'patient';
   const navigate = useNavigate();
+  const [info, setInfo] = useState(null);
+
+  useEffect(() => {
+    const userID = localStorage.getItem('userID');
+    const fetchInfo = async () => {
+      try {
+        if (userID) {
+          const response = await axios.get(`http://localhost:8000/user/${userID}`);
+          setInfo(response.data); // Update state with fetched patient info
+        }
+      } catch (error) {
+        console.error('Error fetching patient info:', error);
+      }
+    };
+
+    fetchInfo();
+  }, []);
 
   useEffect(() => {
     document.body.classList.add('landingPageBody');
@@ -46,7 +64,7 @@ const LandingPage = () => {
         <h1 className="medigraph-title">MediGraph</h1>
         {view === 'patient' && (
           <div className='patientDiv'>
-            <div className="welcome">Welcome, Charbel.</div>
+            <div className="welcome">Welcome, {name}.</div>
             <div className='Notifications'>You have 10 pending notifications.</div>
           </div>
         )}

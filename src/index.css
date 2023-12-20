@@ -315,6 +315,15 @@ body.landingPageBody {
   border-bottom: 1px solid #ffffff;
 }
 
+.errorMessage {
+  color: red;
+  font-size: 12px;
+  font-family: "Roboto", sans-serif;
+  font-style: italic;
+  font-weight: 300;
+  margin-bottom: 5px;
+}
+
 .tableCell {
   flex: 0.2;
   text-align: center;
