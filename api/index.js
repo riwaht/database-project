@@ -61,7 +61,7 @@ MedicalImagingModel.initialize(sequelize);
 PrescriptionsModel.initialize(sequelize);
 
 // Express Routes Import
-const GeneralRoutes = require("./Routes");
+const GeneralRoutes = require("./routes.js");
 const UserRoutes = require("./routes/UserRoutes");
 const AppointmentRoutes = require("./routes/AppointmentRoutes");
 const DrugRoutes = require("./routes/DrugRoutes");
