@@ -3,9 +3,9 @@ const UserModel = require("../models/User");
 
 const GetRole = (token) => {
   jwt.verify(token, process.env["JWT_SECRET"], (err, decoded) => {
-    const { userId } = decoded; // Extract user ID from the decoded token
+    const { userId } = decoded;
 
-    UserModel.findUser({ id: userId }).then((user) => {
+    UserModel.findUser({ userID: userId }).then((user) => {
       if (!user) {
         return "Invalid Token";
       }
